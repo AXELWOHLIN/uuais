@@ -27,6 +27,7 @@ interface Event {
   subtitle: string;
   description: string;
   coverImage: string;
+  date?: string; // Add date property
   applicationsCount?: number;
 }
 
@@ -74,6 +75,7 @@ const AdminEvents = () => {
     subtitle: '',
     description: '',
     coverImage: null as File | null,
+    date: '', // Add date property
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -142,6 +144,7 @@ const AdminEvents = () => {
       subtitle: event.subtitle,
       description: event.description,
       coverImage: null,
+      date: event.date || '', // Prefill date
     });
     setImagePreview(event.coverImage);
     setShowEditModal(true);
@@ -170,7 +173,8 @@ const AdminEvents = () => {
         subtitle: formData.subtitle,
         description: formData.description,
         coverImage: imageUrl,
-        updatedAt: new Date().toISOString()
+        date: formData.date, // Include the updated date
+        updatedAt: new Date().toISOString(),
       });
       
       setSubmitStatus('success');
@@ -194,6 +198,7 @@ const AdminEvents = () => {
       subtitle: '',
       description: '',
       coverImage: null,
+      date: '', // Reset date
     });
     setImagePreview(null);
     setEditingEvent(null);
@@ -221,7 +226,8 @@ const AdminEvents = () => {
         subtitle: formData.subtitle,
         description: formData.description,
         coverImage: imageUrl,
-        createdAt: new Date().toISOString()
+        date: formData.date, // Include the date
+        createdAt: new Date().toISOString(),
       });
       
       // Initialize application collection by adding and immediately deleting a dummy document
@@ -363,6 +369,19 @@ const AdminEvents = () => {
               required
               accept="image/*"
               onChange={handleFileChange}
+              className="w-full px-3 py-2 bg-[#1a1a1a] text-white rounded-md border border-white/10 focus:outline-none focus:border-[#c8102e]"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="date" className="block text-white mb-1 text-sm">Event Date *</label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              required
+              value={formData.date}
+              onChange={handleChange}
               className="w-full px-3 py-2 bg-[#1a1a1a] text-white rounded-md border border-white/10 focus:outline-none focus:border-[#c8102e]"
             />
           </div>
@@ -606,6 +625,19 @@ const AdminEvents = () => {
                 />
                 <p className="text-white/50 text-xs mt-1">Leave empty to keep the current image</p>
               </div>
+
+              <div>
+                <label htmlFor="edit-date" className="block text-white mb-1 text-sm">Event Date *</label>
+                <input
+                  type="date"
+                  id="edit-date"
+                  name="date"
+                  required
+                  value={formData.date}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 bg-[#1a1a1a] text-white rounded-md border border-white/10 focus:outline-none focus:border-[#c8102e]"
+                />
+              </div>
               
               {imagePreview && (
                 <div className="mt-4">
@@ -645,4 +677,4 @@ const AdminEvents = () => {
   );
 };
 
-export default AdminEvents; 
+export default AdminEvents;
