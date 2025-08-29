@@ -11,6 +11,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "UU AI Society",
   description: "A participatory society for everyone into AI at Uppsala University",
+  manifest: "/site.webmanifest",
+  icons: {
+    apple: "/images/apple-touch-icon.png",
+    icon: "/images/favicon-96x96.png",
+  },
 };
 
 export default function RootLayout({
