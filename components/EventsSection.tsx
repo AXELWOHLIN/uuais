@@ -23,6 +23,7 @@ interface Event {
   subtitle: string;
   description: string;
   coverImage: string;
+  date: string; // Add this property
 }
 
 const initialFormState: ApplicationForm = {
@@ -239,9 +240,9 @@ const EventsSection = () => {
         const eventsSnapshot = await getDocs(collection(db, 'events'));
         const eventsData = eventsSnapshot.docs.map(doc => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         })) as Event[];
-        
+
         setEvents(eventsData);
       } catch (error) {
         console.error('Error fetching events:', error);
@@ -263,19 +264,19 @@ const EventsSection = () => {
     <section id="events" className="py-16 bg-[#1a1a1a]/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-2xl font-bold text-white mb-3">Upcoming Events</h2>
+          <h2 className="text-2xl font-bold text-white mb-3">Events</h2>
         </div>
 
         {loading ? (
           <div className="text-center text-white/70">Loading events...</div>
         ) : events.length === 0 ? (
-          <div className="text-center text-white/70">No upcoming events at this time.</div>
+          <div className="text-center text-white/70">No events at this time.</div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {events.map((event) => (
               <div
                 key={event.id}
-                className="bg-[#2a2a2a] rounded-lg overflow-hidden cursor-pointer transform transition-transform hover:scale-105"
+                className="bg-[#2a2a2a] rounded-lg overflow-hidden cursor-pointer transform transition-transform hover:scale-105 flex flex-col h-full"
                 onClick={() => setSelectedEvent(event)}
               >
                 <div className="relative aspect-[16/9] w-full">
@@ -292,10 +293,22 @@ const EventsSection = () => {
                       <p className="text-gray-500">No image available</p>
                     </div>
                   )}
+                  <span
+                    className={`absolute bottom-2 left-2 px-3 py-1 text-sm font-medium rounded ${
+                      new Date(event.date) > new Date() ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+                    }`}
+                  >
+                    {new Date(event.date) > new Date() ? 'Upcoming' : 'Past'}
+                  </span>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-white mb-2">{event.title}</h3>
-                  <p className="text-white/80">{event.subtitle}</p>
+                <div className="flex flex-col h-full flex-1">
+                  <div className="p-6 flex-1">
+                    <h3 className="text-xl font-semibold text-white mb-2">{event.title}</h3>
+                    <p className="text-white/80">{event.subtitle}</p>
+                  </div>
+                  <div className="px-6 pb-4 mt-auto">
+                    <p className="text-white/50 text-sm">{new Date(event.date).toLocaleDateString('en-GB')}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -355,4 +368,4 @@ const EventsSection = () => {
   );
 };
 
-export default EventsSection; 
+export default EventsSection;
