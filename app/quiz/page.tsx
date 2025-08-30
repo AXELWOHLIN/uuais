@@ -210,7 +210,7 @@ export default function QuizPage() {
               </div>
             </div>
             <CardTitle className="text-2xl font-bold text-white mb-2">
-              Q{question.id} — {question.title}
+              Q{question.id}
             </CardTitle>
             <p className="text-gray-300 text-lg leading-relaxed">
               {question.question}
