@@ -12,7 +12,6 @@ const quizQuestions = [
   {
     id: 1,
     question: 'Your travel-planner chatbot cheerfully recommends the "Museum of Underwater Fire," which doesn\'t exist. What just happened?',
-    title: 'Confident but wrong',
     options: [
       'Data drift',
       'Hallucination',
@@ -23,32 +22,29 @@ const quizQuestions = [
   },
   {
     id: 2,
-    question: 'You reward a game agent for passing checkpoints. It learns a short loop that crosses the same checkpoint over and over, farming points instead of finishing the race. This is:',
-    title: 'The sneaky racer',
+    question: 'How long did it take to train GPT-3?',
     options: [
-      'Curriculum learning',
-      'Reward shaping',
-      'Reward hacking',
-      'Domain randomization'
+      '6 hours',
+      '3 days',
+      '34 days',
+      '200 days'
     ],
-    correctAnswer: 2 // Reward hacking
+    correctAnswer: 2 // 34 days
   },
   {
     id: 3,
-    question: 'You want the model to answer product FAQs that update every day, without retraining. Best approach?',
-    title: 'FAQs that change daily',
+    question: 'Which of these is not considered AI?',
     options: [
-      'Full fine-tuning on yesterday\'s data',
-      'Manual prompt with copy-pasted FAQs',
-      'Retrieval-Augmented Generation (RAG) over a live FAQ index',
-      'Few-shot prompting with random examples'
+      'A chess-playing algorithm that looks many moves ahead',
+      'A spam filter that learns from emails',
+      'A thermostat that switches heating on/off at a fixed temperature',
+      'A speech-to-text system that transcribes your words'
     ],
-    correctAnswer: 2 // RAG
+    correctAnswer: 2 // Thermostat
   },
   {
     id: 4,
     question: 'A vision model "learns" to classify wolves vs dogs by noticing snowy backgrounds in wolf photos. This pitfall is called:',
-    title: 'Snowy wolves',
     options: [
       'Mode collapse',
       'Spurious correlation / shortcut learning',
@@ -59,15 +55,36 @@ const quizQuestions = [
   },
   {
     id: 5,
-    question: 'You\'re shipping a selfie filter app. Users want instant results and to keep photos private on their phones. What\'s best?',
-    title: 'Filters on a plane ✈️',
+    question: 'What is a neural network "parameter"?',
     options: [
-      'Cloud inference with a huge model',
-      'On-device (edge) inference with a smaller/quantized model',
-      'Batch uploads to a nightly server job',
-      'Streaming frames to a GPU cluster'
+      'The random seed used before training',
+      'A number the model adjusts during training (like a weight or bias)',
+      'The dataset size',
+      'The GPU temperature while training'
     ],
-    correctAnswer: 1 // On-device inference
+    correctAnswer: 1 // Weight or bias
+  },
+  {
+    id: 6,
+    question: 'An AI system trained only on medical images from one hospital performs poorly at another hospital. Why?',
+    options: [
+      'Overfitting to a narrow data distribution',
+      'Reinforcement learning',
+      'Hyperparameter tuning',
+      'Gradient clipping'
+    ],
+    correctAnswer: 0 // Overfitting
+  },
+  {
+    id: 7,
+    question: 'Which of these is an example of reinforcement learning?',
+    options: [
+      'A model predicting tomorrow\'s stock price from historical data',
+      'A robot that tries different moves, gets rewards, and improves',
+      'A program compressing files more efficiently',
+      'A neural net trained once and then frozen for predictions'
+    ],
+    correctAnswer: 1 // Robot learning
   }
 ];
 
@@ -154,7 +171,7 @@ export default function QuizPage() {
               Test your understanding of AI concepts with our interactive quiz!
             </p>
             <p className="text-gray-400 mt-2">
-              5 questions • Multiple choice • Get your results instantly
+              7 questions • Multiple choice • Get your results instantly
             </p>
           </CardHeader>
           <CardContent className="text-center">
