@@ -41,6 +41,9 @@ const Navbar = () => {
               <Link href="/application" className="text-white hover:text-[#c8102e] px-3 py-2 rounded-md text-sm font-medium">
                 Application
               </Link>
+              <Link href="/quiz" className="text-white hover:text-[#c8102e] px-3 py-2 rounded-md text-sm font-medium">
+                Quiz
+              </Link>
               <a
                 href="#about"
                 onClick={(e) => scrollToSection(e, 'about')}
